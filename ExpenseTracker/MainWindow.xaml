@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExpenseTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Expense Tracker"
+        Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        FontSize="18">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+            x:Name="dataGrid"
+            ItemsSource="{Binding Expenses}"
+            ColumnWidth="*"
+            AlternatingRowBackground="LightGray" />
+
+        <Button Grid.Column="1" Grid.Row="1" x:Name="addExpenseBtn" Content="Add expense" />
     </Grid>
 </Window>

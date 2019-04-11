@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExpenseTracker.Models;
 
 namespace ExpenseTracker
 {
@@ -20,9 +21,13 @@ namespace ExpenseTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ExpenseDB expenseDB;
+
         public MainWindow()
         {
             InitializeComponent();
+            expenseDB = new ExpenseDB();
+            dataGrid.DataContext = expenseDB;
         }
     }
 }
