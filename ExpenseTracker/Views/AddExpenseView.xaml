@@ -5,47 +5,104 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ExpenseTracker.Views"
+        xmlns:rules="clr-namespace:ExpenseTracker.Validation_Rules"
         mc:Ignorable="d"
-        Title="Add expense" Height="200" Width="450" FontSize="18">
-    <Grid>
-        <ScrollViewer>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        Title="Add expense" Height="400" Width="500" FontSize="18">
+    <Window.Resources>
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Expense" FontWeight="Medium" />
 
-                <!-- Labels - Column 0 -->
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Amount"
-                           TextAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Date"
-                           TextAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="Category"
-                           TextAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="Description (optional)"
-                           TextAlignment="Center" VerticalAlignment="Center" />
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <!-- Inputs - Column 1 -->
-                <TextBox x:Name="amountTB" Grid.Column="1" Grid.Row="0"
-                         PreviewTextInput="ValidateAmountInput" />
-                <DatePicker x:Name="datePickerTB" Grid.Column="1" Grid.Row="1" />
-                <TextBox x:Name="categoryTB" Grid.Column="1" Grid.Row="2" />
-                <TextBox x:Name="descriptionTB" Grid.Column="1" Grid.Row="3" />
-                
+            <!-- Labels - Column 0 -->
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Amount"
+                       TextAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Date"
+                       TextAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Category"
+                       TextAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Description (optional)"
+                       TextAlignment="Center" VerticalAlignment="Center" />
 
-                <!-- Button - Column 1 -->
-                <Button x:Name="submitBtn" Click="SubmitBtn_Click"
-                        Grid.Column="1" Grid.Row="4"
-                        Content="Submit" />
-            </Grid>
-        </ScrollViewer>
+            <!-- Inputs - Column 1 -->
+            <TextBox x:Name="amountTB" Grid.Column="1" Grid.Row="0" Margin="5"
+                     Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding 
+                         Mode="TwoWay"
+                         NotifyOnSourceUpdated="True"
+                         NotifyOnTargetUpdated="True"
+                         NotifyOnValidationError="True"
+                         Path="Expense.Amount"
+                         UpdateSourceTrigger="LostFocus"
+                         ValidatesOnDataErrors="True">
+                        <Binding.ValidationRules>
+                            <rules:NumRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <DatePicker x:Name="datePickerTB" Grid.Column="1" Grid.Row="1" Margin="5"
+                        Text="{Binding Path=Expense.Date}" />
+            <TextBox x:Name="categoryTB" Grid.Column="1" Grid.Row="2" Margin="5"
+                     Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding 
+                         Mode="TwoWay"
+                         NotifyOnSourceUpdated="True"
+                         NotifyOnTargetUpdated="True"
+                         NotifyOnValidationError="True"
+                         Path="Expense.Category"
+                         UpdateSourceTrigger="LostFocus"
+                         ValidatesOnDataErrors="True">
+                        <Binding.ValidationRules>
+                            <rules:NonEmptyRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox x:Name="descriptionTB" Grid.Column="1" Grid.Row="3" Margin="5"
+                     Text="{Binding Path=Expense.Description}" />
+        </Grid>
+
+        <!-- Button - Column 1 -->
+        <Button x:Name="submitBtn"
+                Grid.Row="2" Grid.Column="0"
+                Click="SubmitBtn_Click"
+                Content="Submit" HorizontalAlignment="Right"
+                Margin="0, 10, 0, 0" Padding="10" />
     </Grid>
 </Window>

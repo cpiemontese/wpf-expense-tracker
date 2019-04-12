@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,21 +21,32 @@ namespace ExpenseTracker.Views
     /// </summary>
     public partial class AddExpenseView : Window
     {
+        private Expense expense;
+
+        public Expense Expense
+        {
+            get => expense;
+            set => expense = value;
+        }
+
+
         public AddExpenseView()
         {
             InitializeComponent();
+            DataContext = this;
+            Expense = new Expense(0.0f, DateTime.Today, "");
         }
 
-        // TODO: usare il validate del binding
-        private void ValidateAmountInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("([0-9]+)(\\.[0-9]*)?");
-            e.Handled = !regex.IsMatch(e.Text);
-        }
+        // TODO: add constructor with arguments to modify previous expenses i.e. populate with args
 
         private void SubmitBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            // validate Expense before adding it to the db
+            Window newWindow = new Window
+            {
+                Content = Expense.Amount
+            };
+            newWindow.Show();
         }
     }
 }

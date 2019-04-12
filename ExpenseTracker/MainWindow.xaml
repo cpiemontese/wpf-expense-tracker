@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Expense Tracker"
         Height="450" Width="800" WindowStartupLocation="CenterScreen"
-        FontSize="18">
+        FontSize="18" >
     <Window.Resources>
         <Style x:Key="labelStyle"
                TargetType="TextBlock">
@@ -27,13 +27,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--<DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-            x:Name="dataGrid"
-            ColumnWidth="*"
-            AlternatingRowBackground="LightGray" />-->
-
         <Label Grid.Row="0" Grid.Column="0"
-               Content="Expense list" FontSize="24" FontWeight="Bold" />
+               Content="Expenses" FontSize="24" FontWeight="Medium" />
 
         <ScrollViewer Grid.Row="1" Grid.Column="0" MaxHeight="300">
             <ItemsControl x:Name="expensesList">
@@ -45,59 +40,58 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="10"
-                                Padding="10"
-                                BorderThickness="1"
-                                BorderBrush="LightGray" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <!--<RowDefinition Height="auto" />-->
-                                </Grid.RowDefinitions>
+                        <Border>
+                            <Button Margin="10" Padding="10"
+                                    Background="White" BorderBrush="LightGray" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <!--<RowDefinition Height="auto" />-->
+                                    </Grid.RowDefinitions>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                <!-- TODO: recycle some code, everything is almost the same -->
-                                <!-- Row 0 -->
-                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                    <!-- Row 0 -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0"
                                            Text="Date " Style="{StaticResource labelStyle}" />
-                                <TextBlock Grid.Row="0" Grid.Column="1"
-                                           Text="{Binding Date, StringFormat=dd/MM/yyyy}"
+                                    <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Date, StringFormat=dd/MM/yy}"
                                            TextAlignment="Left" />
 
-                                <!-- Row 1 -->
-                                <TextBlock Grid.Row="1" Grid.Column="0"
+                                    <!-- Row 1 -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0"
                                            Text="Amount " Style="{StaticResource labelStyle}" />
-                                <TextBlock Grid.Row="1" Grid.Column="1"
+                                    <TextBlock Grid.Row="1" Grid.Column="1"
                                            Text="{Binding Amount}"
                                            TextAlignment="Left" />
 
-                                <!-- Row 2 -->
-                                <TextBlock Grid.Row="2" Grid.Column="0"
+                                    <!-- Row 2 -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0"
                                            Text="Category " Style="{StaticResource labelStyle}" />
-                                <TextBlock Grid.Row="2" Grid.Column="1"
+                                    <TextBlock Grid.Row="2" Grid.Column="1"
                                            Text="{Binding Category}"
-                                           TextAlignment="Left" />
+                                           TextAlignment="Left" FontStyle="Italic" />
 
-                                <!-- Row 3 -->
-                                <!--<TextBlock Grid.Row="3" Grid.Column="0"
+                                    <!-- Row 3 -->
+                                    <!--<TextBlock Grid.Row="3" Grid.Column="0"
                                            Text="Description " Style="{StaticResource labelStyle}" />
                                 <TextBlock Grid.Row="3" Grid.Column="1"
                                            Text="{Binding Description}"
                                            TextAlignment="Left" />-->
-                            </Grid>
+                                </Grid>
+                            </Button>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
 
-        <Button Grid.Row="2" Grid.Column="0" Margin="20" Padding="10"
+        <Button Grid.Row="2" Grid.Column="0" Margin="0, 20, 0, 0" Padding="10"
                 VerticalAlignment="Bottom" HorizontalAlignment="Right"
                 x:Name="addExpenseBtn" Content="Add expense"
                 Click="AddExpense_Click" />
