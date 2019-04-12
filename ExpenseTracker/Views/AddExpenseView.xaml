@@ -1,0 +1,51 @@
+﻿<Window x:Class="ExpenseTracker.Views.AddExpenseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:ExpenseTracker.Views"
+        mc:Ignorable="d"
+        Title="Add expense" Height="200" Width="450" FontSize="18">
+    <Grid>
+        <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Labels - Column 0 -->
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Amount"
+                           TextAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Date"
+                           TextAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Category"
+                           TextAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Description (optional)"
+                           TextAlignment="Center" VerticalAlignment="Center" />
+
+                <!-- Inputs - Column 1 -->
+                <TextBox x:Name="amountTB" Grid.Column="1" Grid.Row="0"
+                         PreviewTextInput="ValidateAmountInput" />
+                <DatePicker x:Name="datePickerTB" Grid.Column="1" Grid.Row="1" />
+                <TextBox x:Name="categoryTB" Grid.Column="1" Grid.Row="2" />
+                <TextBox x:Name="descriptionTB" Grid.Column="1" Grid.Row="3" />
+                
+
+                <!-- Button - Column 1 -->
+                <Button x:Name="submitBtn" Click="SubmitBtn_Click"
+                        Grid.Column="1" Grid.Row="4"
+                        Content="Submit" />
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

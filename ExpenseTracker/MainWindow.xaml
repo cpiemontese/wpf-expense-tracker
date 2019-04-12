@@ -8,23 +8,98 @@
         Title="Expense Tracker"
         Height="450" Width="800" WindowStartupLocation="CenterScreen"
         FontSize="18">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
+    <Window.Resources>
+        <Style x:Key="labelStyle"
+               TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="TextAlignment" Value="Right" />
+        </Style>
+    </Window.Resources>
 
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-            x:Name="dataGrid"
-            ItemsSource="{Binding Expenses}"
-            ColumnWidth="*"
-            AlternatingRowBackground="LightGray" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="1" Grid.Row="1" x:Name="addExpenseBtn" Content="Add expense" />
+        <!--<DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+            x:Name="dataGrid"
+            ColumnWidth="*"
+            AlternatingRowBackground="LightGray" />-->
+
+        <Label Grid.Row="0" Grid.Column="0"
+               Content="Expense list" FontSize="24" FontWeight="Bold" />
+
+        <ScrollViewer Grid.Row="1" Grid.Column="0" MaxHeight="300">
+            <ItemsControl x:Name="expensesList">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10"
+                                Padding="10"
+                                BorderThickness="1"
+                                BorderBrush="LightGray" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <!--<RowDefinition Height="auto" />-->
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- TODO: recycle some code, everything is almost the same -->
+                                <!-- Row 0 -->
+                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                           Text="Date " Style="{StaticResource labelStyle}" />
+                                <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Date, StringFormat=dd/MM/yyyy}"
+                                           TextAlignment="Left" />
+
+                                <!-- Row 1 -->
+                                <TextBlock Grid.Row="1" Grid.Column="0"
+                                           Text="Amount " Style="{StaticResource labelStyle}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding Amount}"
+                                           TextAlignment="Left" />
+
+                                <!-- Row 2 -->
+                                <TextBlock Grid.Row="2" Grid.Column="0"
+                                           Text="Category " Style="{StaticResource labelStyle}" />
+                                <TextBlock Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding Category}"
+                                           TextAlignment="Left" />
+
+                                <!-- Row 3 -->
+                                <!--<TextBlock Grid.Row="3" Grid.Column="0"
+                                           Text="Description " Style="{StaticResource labelStyle}" />
+                                <TextBlock Grid.Row="3" Grid.Column="1"
+                                           Text="{Binding Description}"
+                                           TextAlignment="Left" />-->
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Button Grid.Row="2" Grid.Column="0" Margin="20" Padding="10"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                x:Name="addExpenseBtn" Content="Add expense"
+                Click="AddExpense_Click" />
     </Grid>
 </Window>

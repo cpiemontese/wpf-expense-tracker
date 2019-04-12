@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ExpenseTracker.Models;
+using ExpenseTracker.Views;
 
 namespace ExpenseTracker
 {
@@ -23,11 +25,19 @@ namespace ExpenseTracker
     {
         private ExpenseDB expenseDB;
 
+        public List<Expense> Expenses { get => expenseDB.Expenses; set => expenseDB.Expenses = value; }
+
         public MainWindow()
         {
             InitializeComponent();
             expenseDB = new ExpenseDB();
-            dataGrid.DataContext = expenseDB;
+            expensesList.ItemsSource = Expenses;
+        }
+
+        public void AddExpense_Click(object sender, RoutedEventArgs e)
+        {
+            Window addExpenseWindow = new AddExpenseView();
+            addExpenseWindow.Show();
         }
     }
 }
