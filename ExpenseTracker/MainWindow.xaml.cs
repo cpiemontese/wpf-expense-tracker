@@ -49,8 +49,8 @@ namespace ExpenseTracker
             Expense clickedExpense = clickedBtn.DataContext as Expense;
             int idx = expenseDB.Expenses.IndexOf(clickedExpense);
             AddExpenseView dialog = new AddExpenseView(clickedExpense);
-            bool? ok = dialog.ShowDialog();
             // shouldn't really do it like this but it's fine for now
+            MessageBox.Show(dialog.Expense.Date.ToString());
             if (ok is bool)
                 expenseDB.Expenses[idx] = dialog.Expense;
         }
