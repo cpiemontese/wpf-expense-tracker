@@ -10,10 +10,10 @@ namespace ExpenseTracker.Models
     public class ExpenseDB
     {
         private const int DBSize = 10;
-        private List<Expense> expenses;
+        private ObservableCollection<Expense> expenses;
         private string[] categories = { "health", "self-care", "food", "home", "clothing" };
 
-        public List<Expense> Expenses
+        public ObservableCollection<Expense> Expenses
         {
             get { return expenses; }
             set { expenses = value; }
@@ -22,7 +22,7 @@ namespace ExpenseTracker.Models
         public ExpenseDB()
         {
             Random rng = new Random();
-            Expenses = new List<Expense>();
+            Expenses = new ObservableCollection<Expense>();
             DateTime start = new DateTime(2000, 1, 1);
             int range = (DateTime.Today - start).Days;
             for (int i = 0; i < DBSize; i++)

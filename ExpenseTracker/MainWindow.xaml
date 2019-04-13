@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ExpenseTracker"
         mc:Ignorable="d"
         Title="Expense Tracker"
-        Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        Height="450" Width="650" WindowStartupLocation="CenterScreen"
         FontSize="18" >
     <Window.Resources>
         <Style x:Key="labelStyle"
@@ -42,7 +42,8 @@
                     <DataTemplate>
                         <Border>
                             <Button Margin="10" Padding="10"
-                                    Background="White" BorderBrush="LightGray" >
+                                    Background="White" BorderBrush="LightGray"
+                                    Click="ModifyExpense_Click">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />
@@ -78,11 +79,11 @@
                                            TextAlignment="Left" FontStyle="Italic" />
 
                                     <!-- Row 3 -->
-                                    <!--<TextBlock Grid.Row="3" Grid.Column="0"
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Visibility="Collapsed"
                                            Text="Description " Style="{StaticResource labelStyle}" />
-                                <TextBlock Grid.Row="3" Grid.Column="1"
-                                           Text="{Binding Description}"
-                                           TextAlignment="Left" />-->
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Visibility="Collapsed"
+                                                Text="{Binding Description}"
+                                                TextAlignment="Left" />
                                 </Grid>
                             </Button>
                         </Border>

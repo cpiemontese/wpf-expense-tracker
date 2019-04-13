@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Validation Rules\NonEmptyRule.cs" />
-    <Compile Include="Validation Rules\NumRule.cs" />
+    <Compile Include="Validation Rules\AmountRule.cs" />
     <Compile Include="Views\AddExpenseView.xaml.cs">
       <DependentUpon>AddExpenseView.xaml</DependentUpon>
     </Compile>

@@ -21,32 +21,28 @@ namespace ExpenseTracker.Views
     /// </summary>
     public partial class AddExpenseView : Window
     {
-        private Expense expense;
+        public Expense Expense { get; set; }
 
-        public Expense Expense
-        {
-            get => expense;
-            set => expense = value;
-        }
+        public AddExpenseView() : this(new Expense(0.0f, DateTime.Today, "")) { }
 
-
-        public AddExpenseView()
+        public AddExpenseView(Expense expenseToModify)
         {
             InitializeComponent();
             DataContext = this;
-            Expense = new Expense(0.0f, DateTime.Today, "");
+            Expense = expenseToModify;
         }
 
         // TODO: add constructor with arguments to modify previous expenses i.e. populate with args
 
         private void SubmitBtn_Click(object sender, RoutedEventArgs e)
         {
-            // validate Expense before adding it to the db
-            Window newWindow = new Window
+            amountTB.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            categoryTB.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            if (!(Validation.GetHasError(amountTB) || Validation.GetHasError(categoryTB)))
             {
-                Content = Expense.Amount
-            };
-            newWindow.Show();
+                DialogResult = true;
+                this.Close();
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ExpenseTracker
     {
         private ExpenseDB expenseDB;
 
-        public List<Expense> Expenses { get => expenseDB.Expenses; set => expenseDB.Expenses = value; }
+        public ObservableCollection<Expense> Expenses { get => expenseDB.Expenses; set => expenseDB.Expenses = value; }
 
         public MainWindow()
         {
@@ -34,10 +34,25 @@ namespace ExpenseTracker
             expensesList.ItemsSource = Expenses;
         }
 
-        public void AddExpense_Click(object sender, RoutedEventArgs e)
+        private void AddExpense_Click(object sender, RoutedEventArgs e)
         {
-            Window addExpenseWindow = new AddExpenseView();
-            addExpenseWindow.Show();
+            AddExpenseView dialog = new AddExpenseView();
+            bool? ok = dialog.ShowDialog();
+            // shouldn't really do it like this but it's fine for now
+            if (ok is bool)
+                expenseDB.Expenses.Add(dialog.Expense);
+        }
+
+        private void ModifyExpense_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedBtn = sender as Button;
+            Expense clickedExpense = clickedBtn.DataContext as Expense;
+            int idx = expenseDB.Expenses.IndexOf(clickedExpense);
+            AddExpenseView dialog = new AddExpenseView(clickedExpense);
+            bool? ok = dialog.ShowDialog();
+            // shouldn't really do it like this but it's fine for now
+            if (ok is bool)
+                expenseDB.Expenses[idx] = dialog.Expense;
         }
     }
 }

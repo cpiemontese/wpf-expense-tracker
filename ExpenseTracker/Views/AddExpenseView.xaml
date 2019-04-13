@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:ExpenseTracker.Views"
         xmlns:rules="clr-namespace:ExpenseTracker.Validation_Rules"
         mc:Ignorable="d"
-        Title="Add expense" Height="400" Width="500" FontSize="18">
+        Title="Add expense" Height="400" Width="500" FontSize="18"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
             <Style.Triggers>
