@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ExpenseTracker"
         mc:Ignorable="d"
         Title="Expense Tracker"
-        Height="450" Width="650" WindowStartupLocation="CenterScreen"
+        Height="450" Width="675" WindowStartupLocation="CenterScreen"
         FontSize="18" >
     <Window.Resources>
         <Style x:Key="labelStyle"
@@ -44,6 +44,12 @@
                             <Button Margin="10" Padding="10"
                                     Background="White" BorderBrush="LightGray"
                                     Click="ModifyExpense_Click">
+                                <Button.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Modify" Click="ModifyExpense_Click" />
+                                        <MenuItem Header="Delete" Click="RemoveExpense_Click"/>
+                                    </ContextMenu>
+                                </Button.ContextMenu>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />

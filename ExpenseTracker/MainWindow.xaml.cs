@@ -45,14 +45,27 @@ namespace ExpenseTracker
 
         private void ModifyExpense_Click(object sender, RoutedEventArgs e)
         {
-            Button clickedBtn = sender as Button;
-            Expense clickedExpense = clickedBtn.DataContext as Expense;
+            Expense clickedExpense = null;
+            if (sender is Button clickedBtn)
+                clickedExpense = clickedBtn.DataContext as Expense;
+            else if (sender is MenuItem clickedItem)
+                clickedExpense = clickedItem.DataContext as Expense;
+
+            if (clickedExpense is null)
+                return;
+
             int idx = expenseDB.Expenses.IndexOf(clickedExpense);
             AddExpenseView dialog = new AddExpenseView(clickedExpense);
             bool? ok = dialog.ShowDialog();
             // shouldn't really do it like this but it's fine for now
             if (ok is bool)
                 expenseDB.Expenses[idx] = dialog.Expense;
+        }
+
+        private void RemoveExpense_Click(object sender, RoutedEventArgs e)
+        {
+            Expense clickedExpense = (sender as MenuItem).DataContext as Expense;
+            expenseDB.Expenses.Remove(clickedExpense);
         }
     }
 }

@@ -51,11 +51,5 @@ namespace ExpenseTracker.Models
             get { return description; }
             set { description = value; }
         }
-
-        public override bool Equals(object obj)
-        {
-            Expense other = obj as Expense;
-            return other.Date == Date && other.Amount == Amount && other.Category == Category;
-        }
     }
 }
