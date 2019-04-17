@@ -75,23 +75,15 @@ namespace ExpenseTracker
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (defaultFileName == "")
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    DefaultExt = "xml",
-                    AddExtension = true,
-                    Filter = "Data Files (*.xml)|*.xml"
-                };
-
-                if (saveFileDialog.ShowDialog() == true)
-                    defaultFileName = saveFileDialog.FileName;
-            }
-
-            WriteExpensesToFile(defaultFileName);
+                RunSaveFileDialog();
+            else
+                WriteExpensesToFile(defaultFileName);
         }
 
         private void SaveAs_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e) => RunSaveFileDialog();
+
+        private void RunSaveFileDialog()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -101,7 +93,10 @@ namespace ExpenseTracker
             };
 
             if (saveFileDialog.ShowDialog() == true)
+            {
                 WriteExpensesToFile(saveFileDialog.FileName);
+                defaultFileName = saveFileDialog.FileName;
+            }
         }
 
         private void WriteExpensesToFile(string fileName)
