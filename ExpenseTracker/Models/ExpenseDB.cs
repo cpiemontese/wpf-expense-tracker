@@ -12,17 +12,28 @@ namespace ExpenseTracker.Models
         private const int DBSize = 10;
         private string[] categories = { "health", "self-care", "food", "home", "clothing" };
 
-        public ObservableCollection<Expense> Expenses { get; set; }
+        private ObservableCollection<Expense> _expenses;
+        public ObservableCollection<Expense> Expenses
+        {
+            get => _expenses;
+            set
+            {
+                _expenses.Clear();
+                foreach (Expense e in value)
+                    _expenses.Add(e);
+            }
+        }
+
 
         public ExpenseDB()
         {
             Random rng = new Random();
-            Expenses = new ObservableCollection<Expense>();
+            _expenses = new ObservableCollection<Expense>();
             DateTime start = new DateTime(2000, 1, 1);
             int range = (DateTime.Today - start).Days;
             for (int i = 0; i < DBSize; i++)
             {
-                Expenses.Add(
+                _expenses.Add(
                     new Expense(
                         rng.Next(1, 100),
                         start.AddDays(rng.Next(range)),

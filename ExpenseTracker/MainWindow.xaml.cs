@@ -112,5 +112,25 @@ namespace ExpenseTracker
                 x.Serialize(file, Expenses);
             }
         }
+
+        private void Open_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                DefaultExt = "xml",
+                AddExtension = true,
+                Filter = "Data Files (*.xml)|*.xml"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                using (StreamReader file = new StreamReader(openFileDialog.FileName))
+                {
+                    XmlSerializer x = new XmlSerializer(Expenses.GetType());
+                    Expenses = x.Deserialize(file) as ObservableCollection<Expense>;
+                }
+            }
+        }
     }
 }
