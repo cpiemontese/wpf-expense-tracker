@@ -32,8 +32,6 @@ namespace ExpenseTracker.Views
             Expense = expenseToModify;
         }
 
-        // TODO: add constructor with arguments to modify previous expenses i.e. populate with args
-
         private void SubmitBtn_Click(object sender, RoutedEventArgs e)
         {
             amountTB.GetBindingExpression(TextBox.TextProperty).UpdateSource();
@@ -41,7 +39,7 @@ namespace ExpenseTracker.Views
             if (!(Validation.GetHasError(amountTB) || Validation.GetHasError(categoryTB)))
             {
                 DialogResult = true;
-                this.Close();
+                Close();
             }
         }
     }

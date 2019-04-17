@@ -10,14 +10,9 @@ namespace ExpenseTracker.Models
     public class ExpenseDB
     {
         private const int DBSize = 10;
-        private ObservableCollection<Expense> expenses;
         private string[] categories = { "health", "self-care", "food", "home", "clothing" };
 
-        public ObservableCollection<Expense> Expenses
-        {
-            get { return expenses; }
-            set { expenses = value; }
-        }
+        public ObservableCollection<Expense> Expenses { get; set; }
 
         public ExpenseDB()
         {

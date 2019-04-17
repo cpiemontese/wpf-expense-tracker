@@ -3,22 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ExpenseTracker.Models
 {
     public class Expense
     {
-        private float amount;
-        private DateTime date;
-        private string category;
-        private string description = "";
+        public Expense() : this(0.0f, DateTime.Today, "") { }
 
-        public Expense(float amount, DateTime date, string category)
-        {
-            Amount = amount;
-            Date = date;
-            Category = category;
-        }
+        public Expense(float amount, DateTime date, string category) : this(amount, date, category, "") { }
 
         public Expense(float amount, DateTime date, string category, string description)
         {
@@ -28,28 +21,9 @@ namespace ExpenseTracker.Models
             Description = description;
         }
 
-        public float Amount
-        {
-            get { return amount; }
-            set { amount = value; }
-        }
-
-        public DateTime Date
-        {
-            get { return date; }
-            set { date = value; }
-        }
-
-        public string Category
-        {
-            get { return category; }
-            set { category = value; }
-        }
-
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public float Amount { get; set; }
+        public DateTime Date { get; set; }
+        public string Category { get; set; }
+        public string Description { get; set; }
     }
 }
