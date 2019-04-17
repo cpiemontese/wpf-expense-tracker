@@ -125,6 +125,7 @@ namespace ExpenseTracker
                     XmlSerializer x = new XmlSerializer(Expenses.GetType());
                     Expenses = x.Deserialize(file) as ObservableCollection<Expense>;
                 }
+                defaultFileName = openFileDialog.FileName;
             }
         }
     }
